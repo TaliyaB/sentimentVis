@@ -1,0 +1,7 @@
+setup.py
+sentimentVis/__init__.py
+sentimentVis.egg-info/PKG-INFO
+sentimentVis.egg-info/SOURCES.txt
+sentimentVis.egg-info/dependency_links.txt
+sentimentVis.egg-info/not-zip-safe
+sentimentVis.egg-info/top_level.txt
