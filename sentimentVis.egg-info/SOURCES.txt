@@ -1,7 +1,11 @@
 setup.py
 sentimentVis/__init__.py
+sentimentVis/input_parser.py
+sentimentVis/text_processor.py
+sentimentVis/visualizer.py
 sentimentVis.egg-info/PKG-INFO
 sentimentVis.egg-info/SOURCES.txt
 sentimentVis.egg-info/dependency_links.txt
 sentimentVis.egg-info/not-zip-safe
 sentimentVis.egg-info/top_level.txt
+test/test.py

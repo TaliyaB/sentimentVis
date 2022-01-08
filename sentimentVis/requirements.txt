@@ -1,0 +1,17 @@
+numpy
+pandas
+IPython
+tqdm
+matplotlib
+seaborn
+sklearn
+textblob
+scipy
+sklearn
+bokeh
+nltk
+wordcloud
+pyldavis
+gensim
+pyLDAvis
+spacy
