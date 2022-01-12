@@ -1,12 +1,14 @@
 from sentimentVis import input_parser, text_processor , visualizer
 from sklearn.feature_extraction.text import CountVectorizer
-
+import  pyLDAvis.sklearn
+print("Dummy test")
 #input data
-docs = input_parser.dummy_parse('sample_data/abcnews-date-text.csv')
-
+docs = input_parser.dummy_parse('sample_data/dummy_data.csv')
+print("Preview of the input data\n",docs.sample(5))
 r"""
 Exploratory Data Analysis
 Get Top N words, plot and save as PNG format
+
 """
 top_n_words = text_processor.top_n_wordcounts(docs,20)
 visualizer.plot_bar(
@@ -21,6 +23,7 @@ visualizer.plot_bar(
 
 r"""
 Perform Sentiment Analysis and organize into two dataframes.
+
 """
 positive, negative = text_processor.sentiment_analysis(
     df = docs,
@@ -31,6 +34,7 @@ positive, negative = text_processor.sentiment_analysis(
 
 r"""
 Generate WordCloud for Positive and Negative Sentiments
+
 """
 visualizer.wordcloud(
     df = positive,
@@ -45,6 +49,7 @@ visualizer.wordcloud(
     output='all_generated/positive_wordcloud.png'
 )
 
+
 visualizer.wordcloud(
     df = negative,
     col_name = 'text',
@@ -58,6 +63,16 @@ visualizer.wordcloud(
     output='all_generated/negative_wordcloud.png'
 )
 
+
 r"""
-Topic Modeling Using Latent Dirichlet Allocation
+Topic Modeling Using Latent Dirichlet Allocation with Visualization
+
 """
+best_lda_model, dtm_tfidf, tfidf_vectorizer = text_processor.latent_dirichlet_allocation(
+    df = positive, col_name="text",  output_graph="all_generated/best_lda_model.png"
+)
+
+visualizer.lda_visual(best_lda_model, tfidf_vectorizer.get_feature_names(), n_top_words=20)
+
+# Topic Modelling Visualization for the Negative Reviews
+pyLDAvis.sklearn.prepare(best_lda_model, dtm_tfidf, tfidf_vectorizer)
