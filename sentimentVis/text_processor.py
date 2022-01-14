@@ -87,7 +87,9 @@ def sentiment_analysis(df, col_name, positive_polarity_floor,
     df_positive_preds = pd.DataFrame(list(zip(positive_sentiments, positive_polarity_scores, positive_subjectivity_scores)), columns = data_cols)
     df_negative_preds = pd.DataFrame(list(zip(negative_sentiments, negative_polarity_scores, negative_subjectivity_scores)), columns = data_cols)
     print("PREDICTED POSITIVE SENTIMENTS")
+    print(df_positive_preds)
     print("PREDICTED NEGATIVE SENTIMENTS")
+    print(df_negative_preds)
     return (df_positive_preds, df_negative_preds)
 
 def latent_dirichlet_allocation(df, col_name, output_graph):
