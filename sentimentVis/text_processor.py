@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import nltk
-#nltk.download('punkt')
-#nltk.download('stopwords')
-#nltk.download('averaged_perceptron_tagger')
-#nltk.download('wordnet')
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
 from textblob import TextBlob
 import gensim
 from gensim import corpora
@@ -24,7 +24,7 @@ import spacy
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.model_selection import GridSearchCV
-#spacy.cli.download("en_core_web_md")
+spacy.cli.download("en_core_web_md")
 import en_core_web_md
 
 def top_n_wordcounts(df, n):
