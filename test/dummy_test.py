@@ -72,7 +72,7 @@ best_lda_model, dtm_tfidf, tfidf_vectorizer = text_processor.latent_dirichlet_al
     df = positive, col_name="text",  output_graph="all_generated/best_lda_model.png"
 )
 
-visualizer.lda_visual(best_lda_model, tfidf_vectorizer.get_feature_names(), n_top_words=20)
+visualizer.lda_visual(best_lda_model, tfidf_vectorizer.get_feature_names(), n_top_words=30)
 
 # Topic Modelling Visualization for the Negative Reviews
-pyLDAvis.sklearn.prepare(best_lda_model, dtm_tfidf, tfidf_vectorizer)
+#pyLDAvis.sklearn.prepare(best_lda_model, dtm_tfidf, tfidf_vectorizer)

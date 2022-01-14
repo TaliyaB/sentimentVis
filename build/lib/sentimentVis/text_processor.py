@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('wordnet')
+#nltk.download('punkt')
+#nltk.download('stopwords')
+#nltk.download('averaged_perceptron_tagger')
+#nltk.download('wordnet')
 from textblob import TextBlob
 import gensim
 from gensim import corpora
@@ -101,31 +101,33 @@ def latent_dirichlet_allocation(df, col_name, output_graph):
         strip_accents = 'unicode',
         stop_words = 'english',
         lowercase =True,
-        token_pattern = r'\b[a-zA-Z{3,}\b' , #num chars > 3 to avoid meaningless words
+        token_pattern = r'\b[a-zA-Z]{3,}\b' , #num chars > 3 to avoid meaningless words
         max_df = 0.9, #remove words that appear 90% of the time
         min_df = 10 #discard terms that appear <10
     )
 
     #apply transformation
     tfidf_vectorizer = TfidfVectorizer(**tf_vectorizer.get_params())
+    print("TFIDF Params: ", tfidf_vectorizer)
 
     #convert to Document-Term Matrix
     dtm_tfidf = tfidf_vectorizer.fit_transform(text_list)
+    print("The shape of the tfidf is {}, meaning that there are {} {} and {} tokens made through the filtering process.".format(dtm_tfidf.shape,dtm_tfidf.shape[0], col_name, dtm_tfidf.shape[1]))
 
     # GRID SEARCH & Parameter Tuning  to find optimal LDA model
 
     #search param
     search_params = {
-        'n_components':[5,10, 15, 20, 25],
+        'n_components':[5,10, 15, 20, 25, 30],
         'learning_decay': [.5 ,.7 , .9]
     }
 
     #init model
     lda = LatentDirichletAllocation()
-    model = GridSearchCV(lda,param_grid = search_params)
+    model = GridSearchCV(lda, param_grid = search_params)
 
     #grid search
-    model.fit()
+    model.fit(dtm_tfidf)
 
     # OUTPUT OPTIMAL MODEL
     best_lda_model = model.best_estimator_
@@ -153,7 +155,6 @@ def latent_dirichlet_allocation(df, col_name, output_graph):
     plt.ylabel("Log Likelyhood Scores")
     plt.legend(title='Learning decay', loc='best')
     plt.savefig(output_graph)
-    plt.show()
 
     return best_lda_model, dtm_tfidf, tfidf_vectorizer
 
